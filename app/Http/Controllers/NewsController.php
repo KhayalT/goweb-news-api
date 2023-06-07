@@ -7,7 +7,7 @@ use App\Http\Requests\UpdateNewsRequest;
 use App\Http\Resources\NewsResource;
 use App\Http\Traits\ApiFormatterTrait;
 use App\Models\News;
-use App\Services\INewsService;
+use App\Services\NewsService;
 use Illuminate\Http\JsonResponse;
 
 class NewsController extends Controller
@@ -16,7 +16,7 @@ class NewsController extends Controller
 
     private $newsService;
 
-    public function __construct(INewsService $newsService)
+    public function __construct(NewsService $newsService)
     {
         $this->newsService = $newsService;
     }
@@ -39,6 +39,7 @@ class NewsController extends Controller
      *
      * @param StoreNewsRequest $request
      * @return JsonResponse
+     * @throws \Exception
      */
     public function store(StoreNewsRequest $request): JsonResponse
     {
@@ -66,6 +67,7 @@ class NewsController extends Controller
      * @param UpdateNewsRequest $request
      * @param int $id
      * @return JsonResponse
+     * @throws \Exception
      */
     public function update(UpdateNewsRequest $request, int $id): JsonResponse
     {
