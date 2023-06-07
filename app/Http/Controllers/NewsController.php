@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\NewsResource;
+use App\Http\Traits\ApiFormatterTrait;
+use App\Models\News;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class NewsController extends Controller
 {
+    use ApiFormatterTrait;
+
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return JsonResponse
      */
-    public function index(): Response
+    public function index(): JsonResponse
     {
-        //
+        $news = News::query()->get();
+
+        return $this->success(NewsResource::collection($news));
     }
 
 
