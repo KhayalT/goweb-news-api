@@ -23,6 +23,8 @@ class CreateNewsTranslationsTable extends Migration
 
             $table->foreign('language_id')->references('id')->on('languages')->onDelete('cascade');
             $table->foreign('news_id')->references('id')->on('news')->onDelete('cascade');
+
+            $table->unique(['news_id', 'language_id']);
         });
     }
 
