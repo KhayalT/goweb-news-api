@@ -2,16 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreNewsRequest;
+use App\Http\Requests\UpdateNewsRequest;
 use App\Http\Resources\NewsResource;
 use App\Http\Traits\ApiFormatterTrait;
 use App\Models\News;
+use App\Services\INewsService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 
 class NewsController extends Controller
 {
     use ApiFormatterTrait;
+
+    private $newsService;
+
+    public function __construct(INewsService $newsService)
+    {
+        $this->newsService = $newsService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -29,12 +37,14 @@ class NewsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return Response
+     * @param StoreNewsRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request): Response
+    public function store(StoreNewsRequest $request): JsonResponse
     {
-        //
+        $response = $this->newsService->store($request);
+
+        return $this->success(new NewsResource($response));
     }
 
     /**
@@ -53,15 +63,17 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param UpdateNewsRequest $request
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function update(Request $request, int $id): Response
+    public function update(UpdateNewsRequest $request, int $id): JsonResponse
     {
         $news = News::query()->findOrFail($id);
 
-        $news->update($request->all());
+        $response = $this->newsService->update($request, $news);
+
+        return $this->success(new NewsResource($response));
     }
 
     /**

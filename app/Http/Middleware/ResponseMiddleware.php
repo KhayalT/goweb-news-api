@@ -18,7 +18,7 @@ class ResponseMiddleware
      *
      * @return Response
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         $trace         = null;
         $error_message = null;
