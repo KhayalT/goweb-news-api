@@ -26,10 +26,10 @@ class UpdateNewsRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'translations' => 'array',
-            'translations.title' => 'required',
-            'translations.description' => 'required',
-            'translations.language_id' => 'required|integer|exists:languages,id',
+            'translations.*' => 'array',
+            'translations.*.title' => 'required',
+            'translations.*.description' => 'required',
+            'translations.*.language_id' => 'required|integer|exists:languages,id',
         ];
     }
 }
