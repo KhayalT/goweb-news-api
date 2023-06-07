@@ -61,6 +61,7 @@ class NewsService implements INewsService
             }
 
             DB::commit();
+
             return $news;
         }catch (Exception $th){
             DB::rollBack();

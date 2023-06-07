@@ -12,7 +12,7 @@ class News extends Model
 
     protected $table = 'news';
 
-    protected $fillable = ['title', 'description', 'status', 'view_count'];
+    protected $fillable = ['title', 'description', 'status'];
 
     public function translations(): HasMany
     {

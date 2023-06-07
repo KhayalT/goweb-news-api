@@ -26,6 +26,7 @@ class UpdateNewsRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
+            'status' => 'boolean',
             'translations.*' => 'array',
             'translations.*.title' => 'required',
             'translations.*.description' => 'required',

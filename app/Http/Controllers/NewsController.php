@@ -58,6 +58,8 @@ class NewsController extends Controller
     {
         $news = News::query()->findOrFail($id);
 
+        $news->increment('view_count');
+
         return $this->success(new NewsResource($news));
     }
 
@@ -73,9 +75,9 @@ class NewsController extends Controller
     {
         $news = News::query()->findOrFail($id);
 
-        $response = $this->newsService->update($request, $news);
+        $this->newsService->update($request, $news);
 
-        return $this->success(new NewsResource($response));
+        return $this->success(new NewsResource($news));
     }
 
     /**
