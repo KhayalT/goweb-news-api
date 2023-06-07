@@ -20,9 +20,9 @@ class NewsController extends Controller
      */
     public function index(): JsonResponse
     {
-        $news = News::query()->get();
+        $allNews = News::query()->get();
 
-        return $this->success(NewsResource::collection($news));
+        return $this->success(NewsResource::collection($allNews));
     }
 
 
@@ -41,11 +41,13 @@ class NewsController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function show(int $id): Response
+    public function show(int $id): JsonResponse
     {
-        //
+        $news = News::query()->findOrFail($id);
+
+        return $this->success(new NewsResource($news));
     }
 
     /**
@@ -57,17 +59,23 @@ class NewsController extends Controller
      */
     public function update(Request $request, int $id): Response
     {
-        //
+        $news = News::query()->findOrFail($id);
+
+        $news->update($request->all());
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function destroy(int $id): Response
+    public function destroy(int $id): JsonResponse
     {
-        //
+        $news = News::query()->findOrFail($id);
+
+        $news->delete();
+
+        return $this->success(new NewsResource($news));
     }
 }
