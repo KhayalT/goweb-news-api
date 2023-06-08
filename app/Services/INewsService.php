@@ -9,5 +9,5 @@ interface INewsService
 {
     public static function store(StoreNewsRequest $request);
 
-    public static function update(UpdateNewsRequest $request, $news): string;
+    public static function update(UpdateNewsRequest $request, $news);
 }
